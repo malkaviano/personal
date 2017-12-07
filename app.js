@@ -61,7 +61,13 @@ app.post('/request', function(req, res) {
 
       res.redirect('/');
     })
-    .catch(err => console.log(`Error: ${err}`));
+    .catch(err => {
+      console.log(`Error: ${err}`);
+
+      res.flash('error_msg', err);
+
+      res.render('index/hire');
+    });
 });
 
 app.listen(port, () => {

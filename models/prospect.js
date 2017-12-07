@@ -11,7 +11,6 @@ function model() {
         name: {
           type: String,
           required: true,
-          minlength: 5,
           maxlength: 50,
           trim: true,
           index: true
@@ -23,7 +22,7 @@ function model() {
         },
         email: {
           type: String,
-          maxlength: 20,
+          maxlength: 30,
           trim: true,
           required: true
         },
