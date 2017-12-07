@@ -9,6 +9,9 @@ const express = require('express'),
       path = require('path'),
       bodyParser = require('body-parser'),
       viewEngine = require('./config/handlebars'),
+      Prospect = require('./models/prospect'),
+      session = require('./config/session'),
+      flash = require('./config/flash'),
       port = process.env.PORT
 ;
 
@@ -19,6 +22,16 @@ app.use(bodyParser.json());
 
 app.engine(viewEngine.name, viewEngine.config());
 app.set('view engine', viewEngine.name);
+
+app.use(session());
+
+app.use(function(req, res, next) {
+  res.locals.session = req.session;
+
+  next();
+});
+
+app.use(flash());
 
 app.get('/', function(req, res) {
   res.render('index/index');
@@ -41,8 +54,14 @@ app.get('/ideas', function(req, res) {
 });
 
 app.post('/request', function(req, res) {
-  
-  res.redirect('/');
+  new Prospect(req.body)
+    .save()
+    .then(prospect => {
+      res.flash('info_msg', 'Solicitação cadastrada');
+
+      res.redirect('/');
+    })
+    .catch(err => console.log(`Error: ${err}`));
 });
 
 app.listen(port, () => {

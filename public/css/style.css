@@ -25,3 +25,9 @@ main {
 .icon-block .material-icons {
 	font-size: inherit;
 }
+
+.close {
+  position: relative;
+  top: -15px;
+  color: inherit;
+}
