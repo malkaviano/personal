@@ -24,8 +24,25 @@ app.get('/', function(req, res) {
   res.render('index/index');
 });
 
+app.get('/hire', function(req, res) {
+  res.render('index/hire');
+});
+
+app.get('/demos', function(req, res) {
+  res.render('index/demos');
+});
+
 app.get('/stack', function(req, res) {
   res.render('index/stack');
+});
+
+app.get('/ideas', function(req, res) {
+  res.render('index/ideas');
+});
+
+app.post('/request', function(req, res) {
+  
+  res.redirect('/');
 });
 
 app.listen(port, () => {
