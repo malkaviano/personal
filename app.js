@@ -11,7 +11,7 @@ const express = require('express'),
       viewEngine = require('./config/handlebars'),
       Prospect = require('./models/prospect'),
       session = require('./config/session'),
-      flash = require('./config/flash'),
+      flash = require('express-flash-2'),
       port = process.env.PORT
 ;
 
@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 app.engine(viewEngine.name, viewEngine.config());
 app.set('view engine', viewEngine.name);
 
-app.use(session());
+app.use(session);
 
 app.use(function(req, res, next) {
   res.locals.session = req.session;
