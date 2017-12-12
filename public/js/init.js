@@ -12,6 +12,13 @@
           $(this).remove();
       });
   });
-  }); // end of document ready
+  }
+); // end of document ready
+
+$('.clickable').click(function(event) {
+  // Materialize.toast(message, displayLength, className, completeCallback);
+  Materialize.toast($(this).data('explanation'), 5000); // 4000 is the duration of the toast
+  
+});
 
 })(jQuery); // end of jQuery name space
