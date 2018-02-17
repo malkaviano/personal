@@ -12,6 +12,7 @@ const express = require('express'),
       Prospect = require('./models/prospect'),
       session = require('./config/session'),
       flash = require('express-flash-2'),
+      routes = require('./config/routes'),
       port = process.env.PORT
 ;
 
@@ -33,42 +34,9 @@ app.use(function(req, res, next) {
 
 app.use(flash());
 
-app.get('/', function(req, res) {
-  res.render('index/index');
-});
-
-app.get('/hire', function(req, res) {
-  res.render('index/hire');
-});
-
-app.get('/demos', function(req, res) {
-  res.render('index/demos');
-});
-
-app.get('/stack', function(req, res) {
-  res.render('index/stack');
-});
-
-app.get('/ideas', function(req, res) {
-  res.render('index/ideas');
-});
-
-app.post('/request', function(req, res) {
-  new Prospect(req.body)
-    .save()
-    .then(prospect => {
-      res.flash('info_msg', 'Solicitação cadastrada');
-
-      res.redirect('/');
-    })
-    .catch(err => {
-      console.log(`Error: ${err}`);
-
-      res.flash('error_msg', err);
-
-      res.render('index/hire');
-    });
-});
+for(const name in routes) {
+  app.use(routes[name].path, routes[name].router);
+}
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
