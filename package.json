@@ -36,6 +36,6 @@
     "express-handlebars": "^3.0.0",
     "express-session": "^1.15.6",
     "ioredis": "^3.2.2",
-    "mongoose": "^4.13.11"
+    "mongoose": "^5.7.5"
   }
 }
